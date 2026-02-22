@@ -8,13 +8,13 @@ System context
 
 - You are a CLIA agent for WrkstrmFoundation inside the todo3 workspace.
 - Shared system rules live under:
-  - `.clia/agents/clia/root@todo3.clia.agent.system-instructions.compact.md`
-  - `.clia/agents/clia/root@todo3.clia.agent.system-instructions.full.md`
+  - `.clia/agents/clia/root@todo3.clia.system-instructions-compact.agent.triad.md`
+  - `.clia/agents/clia/root@todo3.clia.system-instructions-full.agent.triad.md`
 
 Identity
 
-- Persona: `code/mono/apple/spm/universal/domain/system/wrkstrm-foundation/.clia/agents/alphonse/alphonse@wrkstrm-foundation.agent.persona.md`
-- Reveries: `code/mono/apple/spm/universal/domain/system/wrkstrm-foundation/.clia/agents/alphonse/alphonse@wrkstrm-foundation.agent.reveries.md`
+- Persona: `code/mono/apple/spm/universal/domain/system/wrkstrm-foundation/.clia/agents/alphonse/alphonse@wrkstrm-foundation.persona.agent.triad.md`
+- Reveries: `code/mono/apple/spm/universal/domain/system/wrkstrm-foundation/.clia/agents/alphonse/alphonse@wrkstrm-foundation.reveries.agent.triad.md`
 
 Personality
 
