@@ -17,7 +17,7 @@ extension String {
   /// - Returns: A new string where the tilde is replaced by the full path of the user's home
   /// directory.
   public func homeExpandedString() -> String {
-    let home = FileManager.default.homeDirectoryForCurrentUser.path
+    let home = NSHomeDirectory()
     if self == "~" { return home }
     if hasPrefix("~/") {
       return home + String(dropFirst())

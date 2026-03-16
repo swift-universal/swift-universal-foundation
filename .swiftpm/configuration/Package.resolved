@@ -20,12 +20,12 @@
       }
     },
     {
-      "identity": "wrkstrmmain",
+      "identity": "swift-universal-main",
       "kind": "remoteSourceControl",
-      "location": "https://github.com/wrkstrm/WrkstrmMain.git",
+      "location": "https://github.com/swift-universal/swift-universal-main.git",
       "state": {
-        "revision": "22e4a15e33f66e48e817df3920ad3b2a4ede02d2",
-        "version": "0.5.6"
+        "revision": "9a7c83c10d439eeb22c643cde50e826d33152d3b",
+        "version": "3.0.4"
       }
     }
   ],
