@@ -30,7 +30,8 @@ extension String {
       }
       spaced.append(character)
     }
-    return spaced
+    return
+      spaced
       .trimmingCharacters(in: .whitespacesAndNewlines)
       .capitalized
   }

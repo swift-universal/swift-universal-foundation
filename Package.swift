@@ -3,19 +3,40 @@ import Foundation
 import PackageDescription
 
 // Local/remote toggle
-let useLocalDeps: Bool = {
-  guard let raw = ProcessInfo.processInfo.environment["SPM_USE_LOCAL_DEPS"] else { return true }
+func envBool(_ key: String) -> Bool? {
+  guard let raw = ProcessInfo.processInfo.environment[key] else { return nil }
   let v = raw.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-  return v == "1" || v == "true" || v == "yes" || v == "on"
+
+  return switch v {
+  case "1", "true", "yes", "on":
+    true
+  case "0", "false", "no", "off":
+    false
+  default:
+    false
+  }
+}
+
+let useLocalDeps: Bool = {
+  if let ciLocalDeps = envBool("SPM_CI_USE_LOCAL_DEPS") { return ciLocalDeps }
+  if let localDeps = envBool("SPM_USE_LOCAL_DEPS") { return localDeps }
+  return true
 }()
 
-func localOrRemote(name: String, path: String, url: String, from version: Version) -> Package.Dependency {
+func localOrRemote(
+  name: String,
+  path: String,
+  url: String,
+  from version: Version
+) -> Package.Dependency {
   if useLocalDeps { return .package(name: name, path: path) }
   return .package(url: url, from: version)
 }
 
 let sharedSwiftSettings: [SwiftSetting] =
-  useLocalDeps ? [.unsafeFlags(["-Xfrontend", "-warn-long-expression-type-checking=20"])] : []
+  useLocalDeps
+  ? [.unsafeFlags(["-Xfrontend", "-warn-long-expression-type-checking=20"])]
+  : []
 
 let package = Package(
   name: "SwiftUniversalFoundation",
@@ -28,7 +49,7 @@ let package = Package(
     .watchOS(.v9),
   ],
   products: [
-    .library(name: "SwiftUniversalFoundation", targets: ["SwiftUniversalFoundation"]),
+    .library(name: "SwiftUniversalFoundation", targets: ["SwiftUniversalFoundation"])
   ],
   dependencies: [
     localOrRemote(
@@ -50,7 +71,7 @@ let package = Package(
       name: "SwiftUniversalFoundation",
       dependencies: [
         .product(name: "CommonLog", package: "common-log"),
-        .product(name: "SwiftUniversalMain", package: "swift-universal-main")
+        .product(name: "SwiftUniversalMain", package: "swift-universal-main"),
       ],
       path: "Sources/SwiftUniversalFoundation",
       swiftSettings: sharedSwiftSettings

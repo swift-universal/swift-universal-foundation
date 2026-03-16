@@ -1,5 +1,5 @@
-import Foundation
 import CommonLog
+import Foundation
 
 // MARK: - JSONDecoder presets
 
