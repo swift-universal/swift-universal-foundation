@@ -38,6 +38,14 @@ jobs:
       run: swift package describe --type json
     - name: Set CI Style
       run: echo "SPM_CI_USE_LOCAL_DEPS=false" >> $GITHUB_ENV
+    - name: Configure Git auth for private dependencies
+      shell: bash
+      env:
+        ORG_READ_TOKEN: ${{ secrets.ORG_PAGES_TOKEN }}
+      run: |
+        set -euo pipefail
+        TOKEN="${ORG_READ_TOKEN:-${GITHUB_TOKEN}}"
+        git config --global url."https://x-access-token:${TOKEN}@github.com/".insteadOf "https://github.com/"
     - name: Check CI Style
       run: '[ -z "${SPM_CI_USE_LOCAL_DEPS}" ] && echo "SPM_CI_LOCAL_DEPS is not set"
         || echo "SPM_CI_USE_LOCAL_DEPS is set to ${SPM_CI_USE_LOCAL_DEPS}"'
