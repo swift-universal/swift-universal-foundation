@@ -1,26 +1,22 @@
-# WrkstrmFoundation
-
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fwrkstrm%2FWrkstrmFoundation%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/wrkstrm/WrkstrmFoundation)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fwrkstrm%2FWrkstrmFoundation%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/wrkstrm/WrkstrmFoundation)
-
-| Surface | Status |
-| :-- | :-- |
-| Swift Package Index | [Swift Versions](https://swiftpackageindex.com/wrkstrm/WrkstrmFoundation) · [Platforms](https://swiftpackageindex.com/wrkstrm/WrkstrmFoundation) |
-| GitHub Actions | [Tests](https://github.com/wrkstrm/mono/actions/workflows/wrkstrm-foundation-tests-swift.yml) · [Lint + Docs](https://github.com/wrkstrm/mono/actions/workflows/wrkstrm-foundation-swift.yml) |
+# SwiftUniversalFoundation
 
 > “Programs must be written for people to read, and only incidentally for machines to execute.” —Harold Abelson
 
-Swift essentials for JSON, data archiving, and file-system helpers. This package is compatible with Linux and ships the shared primitives that higher-level Wrkstrm libraries rely on.
+Swift essentials for JSON, data archiving, and file-system helpers. This package is compatible with Linux and ships the shared primitives that higher-level SwiftUniversal libraries rely on.
+
+This package currently lives as a private universal system library inside the
+`swift-universal` collective. The package is intended to replace the old
+legacy foundation-library dependency lane inside private `swift-universal` packages.
 
 ## Key Features
 
 - 🗂️ **Deterministic JSON** – Human-friendly writers, explicit key mapping, date-only strategies, and atomic file IO helpers.
 - 🛡️ **Reliability guardrails** – Runtime configuration hooks, policy sections, and coverage guidance modeled after CommonProcess.
-- 📚 **DocC-first** – Catalog under `Sources/WrkstrmFoundation/Documentation.docc/`.
+- 📚 **DocC-first** – Catalog under `Sources/SwiftUniversalFoundation/Documentation.docc/`.
 
 ## Modules
 
-### WrkstrmFoundation
+### SwiftUniversalFoundation
 
 A collection of Swift extensions and utilities tailored for efficient JSON handling and robust data archiving:
 
@@ -30,7 +26,8 @@ A collection of Swift extensions and utilities tailored for efficient JSON handl
 - Logging + error handling: integrations with CommonLog for deterministic diagnostics.
 - Standard-library lifts: `String`, `Bundle`, and collection extensions for file discovery and JSON decoding.
 
-For typed networking primitives, see `code/mono/apple/spm/universal/domain/system/wrkstrm-networking`.
+For typed networking primitives, see the legacy `wrkstrm-networking` package at
+`private/universal/substrate/collectives/wrkstrm/private/universal/spm/domain/system/wrkstrm-networking`.
 
 - **Environment-driven clients**: inject `HTTP.Environment` values to control base URLs, headers, and schemes (including WebSocket variants).
 - **JSON pipeline**: pair `JSONEncoder.commonDateFormatting` / `JSONDecoder.commonDateParsing` with `JSON.Formatting.humanEncoder` when persisting to disk.
@@ -38,7 +35,7 @@ For typed networking primitives, see `code/mono/apple/spm/universal/domain/syste
 - **Streaming adapters**: `HTTP.StreamExecutor` and `HTTP.WebSocket` mirror the CommandInvocation-first pattern from CommonProcess—callers select codecs, deadlines, and instrumentation explicitly.
 
 - Writers should prefer `prettyPrinted + sortedKeys + withoutEscapingSlashes` and atomic writes.
-- Use helpers from WrkstrmFoundation:
+- Use helpers from SwiftUniversalFoundation:
   - `JSON.Formatting.humanEncoder` for `Encodable` payloads.
   - `JSON.Formatting.humanOptions` for `JSONSerialization`.
   - `JSON.FileWriter.write(_:to:)` / `writeJSONObject(_:to:)` to persist.
@@ -76,7 +73,7 @@ For typed networking primitives, see `code/mono/apple/spm/universal/domain/syste
 - Local coverage workflow:
 
 ```
-# From code/mono/apple/spm/universal/WrkstrmFoundation
+# From code/mono/apple/spm/universal/SwiftUniversalFoundation
 swift test --enable-code-coverage
 PROF=$(swift test --show-codecov-path)
 TEST_BIN=$(find .build -type f -path '*/debug/*PackageTests.xctest/Contents/MacOS/*' | head -n 1)
@@ -90,7 +87,7 @@ xcrun llvm-cov show "$TEST_BIN" -instr-profile "$PROF" \
 
 ## 🏁 Flagship + Docs
 
-WrkstrmFoundation is one of our flagship libraries (alongside WrkstrmMain and CommonLog). Explore the DocC catalog under `Sources/WrkstrmFoundation/Documentation.docc/` for guides and indices.
+SwiftUniversalFoundation is one of our flagship libraries (alongside SwiftUniversalMain and CommonLog). Explore the DocC catalog under `Sources/SwiftUniversalFoundation/Documentation.docc/` for guides and indices.
 
 ## Release Checklist (Living)
 
@@ -103,8 +100,8 @@ WrkstrmFoundation is one of our flagship libraries (alongside WrkstrmMain and Co
 
 | Library                            | Build Status                                                                                                                                                                                                                  |
 | :--------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| wrkstrm-foundation-tests-swift.yml | [![wrkstrm-foundation-tests-swift.yml](https://github.com/wrkstrm/mono/actions/workflows/wrkstrm-foundation-tests-swift.yml/badge.svg)](https://github.com/wrkstrm/mono/actions/workflows/wrkstrm-foundation-tests-swift.yml) |
-| wrkstrm-foundation-swift.yml       | [![wrkstrm-foundation-swift.yml](https://github.com/wrkstrm/mono/actions/workflows/wrkstrm-foundation-swift.yml/badge.svg)](https://github.com/wrkstrm/mono/actions/workflows/wrkstrm-foundation-swift.yml)                   |
+| swift-universal-foundation-tests-swift.yml | Internal workflow |
+| swift-universal-foundation-swift.yml       | Internal workflow |
 
 ---
 

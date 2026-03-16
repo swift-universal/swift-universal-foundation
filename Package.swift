@@ -4,9 +4,9 @@ import PackageDescription
 
 // Local/remote toggle
 let useLocalDeps: Bool = {
-  guard let raw = ProcessInfo.processInfo.environment["SPM_USE_LOCAL_DEPS"] else { return false }
+  guard let raw = ProcessInfo.processInfo.environment["SPM_USE_LOCAL_DEPS"] else { return true }
   let v = raw.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-  return v == "1" || v == "true" || v == "yes"
+  return v == "1" || v == "true" || v == "yes" || v == "on"
 }()
 
 func localOrRemote(name: String, path: String, url: String, from version: Version) -> Package.Dependency {
@@ -15,10 +15,10 @@ func localOrRemote(name: String, path: String, url: String, from version: Versio
 }
 
 let sharedSwiftSettings: [SwiftSetting] =
-  useLocalDeps ? [.unsafeFlags(["-Xfrontend", "-warn-long-expression-type-checking=10"])] : []
+  useLocalDeps ? [.unsafeFlags(["-Xfrontend", "-warn-long-expression-type-checking=20"])] : []
 
 let package = Package(
-  name: "WrkstrmFoundation",
+  name: "SwiftUniversalFoundation",
   platforms: [
     .iOS(.v16),
     .macOS(.v11),
@@ -28,33 +28,37 @@ let package = Package(
     .watchOS(.v9),
   ],
   products: [
-    .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"]),
+    .library(name: "SwiftUniversalFoundation", targets: ["SwiftUniversalFoundation"]),
   ],
   dependencies: [
     localOrRemote(
       name: "common-log",
-      path: "../../../../../../../swift-universal/public/spm/universal/domain/system/common-log",
+      path: "../../../../spm/domain/system/common-log",
       url: "https://github.com/swift-universal/common-log.git",
-      from: "3.0.0"),
+      from: "3.0.0"
+    ),
     localOrRemote(
-      name: "wrkstrm-main",
-      path: "../wrkstrm-main",
-      url: "https://github.com/wrkstrm/wrkstrm-main.git",
-      from: "3.0.0"),
+      name: "swift-universal-main",
+      path: "../swift-universal-main",
+      url: "https://github.com/swift-universal/swift-universal-main.git",
+      from: "3.0.0"
+    ),
     .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.4.0"),
   ],
   targets: [
     .target(
-      name: "WrkstrmFoundation",
+      name: "SwiftUniversalFoundation",
       dependencies: [
         .product(name: "CommonLog", package: "common-log"),
-        .product(name: "WrkstrmMain", package: "wrkstrm-main")
+        .product(name: "SwiftUniversalMain", package: "swift-universal-main")
       ],
+      path: "Sources/SwiftUniversalFoundation",
       swiftSettings: sharedSwiftSettings
     ),
     .testTarget(
-      name: "WrkstrmFoundationTests",
-      dependencies: ["WrkstrmFoundation"],
+      name: "SwiftUniversalFoundationTests",
+      dependencies: ["SwiftUniversalFoundation"],
+      path: "Tests/SwiftUniversalFoundationTests",
       swiftSettings: sharedSwiftSettings
     ),
   ]

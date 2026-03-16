@@ -1,7 +1,7 @@
 version: 1 
 builder:   
   configs:
-  - documentation_targets: [WrkstrmFoundation]
+  - documentation_targets: [SwiftUniversalFoundation]
     custom_documentation_parameters: [--include-extended-types]
   - platform: watchos
     scheme: ComposableArchitecture_watchOS
