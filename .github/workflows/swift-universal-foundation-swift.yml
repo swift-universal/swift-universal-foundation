@@ -42,9 +42,10 @@ jobs:
       shell: bash
       env:
         ORG_READ_TOKEN: ${{ secrets.ORG_PAGES_TOKEN }}
+        GH_TOKEN: ${{ github.token }}
       run: |
         set -euo pipefail
-        TOKEN="${ORG_READ_TOKEN:-${GITHUB_TOKEN}}"
+        TOKEN="${ORG_READ_TOKEN:-${GH_TOKEN}}"
         git config --global url."https://x-access-token:${TOKEN}@github.com/".insteadOf "https://github.com/"
     - name: Check CI Style
       run: '[ -z "${SPM_CI_USE_LOCAL_DEPS}" ] && echo "SPM_CI_LOCAL_DEPS is not set"
