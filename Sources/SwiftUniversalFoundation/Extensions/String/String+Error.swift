@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUniversalMain
 
-extension StringError: CustomNSError {
+extension StringError: @retroactive CustomNSError {
 
   // CustomNSError to surface the message via localizedDescription
   public static var errorDomain: String { "SwiftUniversalMain.StringError" }
