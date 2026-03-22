@@ -41,7 +41,7 @@ let sharedSwiftSettings: [SwiftSetting] =
 let package = Package(
   name: "SwiftUniversalFoundation",
   platforms: [
-    .iOS(.v16),
+    .iOS(.v15),
     .macOS(.v11),
     .macCatalyst(.v15),
     .tvOS(.v16),
